@@ -2,6 +2,7 @@ package io.github.gabrielvavelar.NewsLetter.service.summary;
 
 import com.google.genai.Client;
 import io.github.gabrielvavelar.NewsLetter.config.GeminiProperties;
+import io.github.gabrielvavelar.NewsLetter.exception.InvalidSummaryInputException;
 import io.github.gabrielvavelar.NewsLetter.exception.SummaryGenerationException;
 import io.github.gabrielvavelar.NewsLetter.model.NewsArticle;
 import io.github.gabrielvavelar.NewsLetter.prompt.SummaryPromptBuilder;
@@ -19,6 +20,9 @@ public class SummaryService {
     private final SummaryPromptBuilder promptBuilder;
 
     public String generateSummary(List<NewsArticle> articles) {
+        if (articles == null || articles.isEmpty()) {
+            throw new InvalidSummaryInputException("No articles available to summarize");
+        }
         try{
             GenerateContentResponse response =
                     client.models.generateContent(
@@ -31,10 +35,9 @@ public class SummaryService {
                }
 
             return response.text();
-
         }
         catch (Exception e){
-            throw new SummaryGenerationException("Failed to generate Gemini summary");
+            throw new SummaryGenerationException("Failed to generate Gemini summary", e);
         }
     }
 }
