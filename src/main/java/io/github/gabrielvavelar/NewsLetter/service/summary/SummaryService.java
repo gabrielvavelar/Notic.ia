@@ -2,6 +2,7 @@ package io.github.gabrielvavelar.NewsLetter.service.summary;
 
 import com.google.genai.Client;
 import io.github.gabrielvavelar.NewsLetter.config.GeminiProperties;
+import io.github.gabrielvavelar.NewsLetter.exception.SummaryGenerationException;
 import io.github.gabrielvavelar.NewsLetter.model.NewsArticle;
 import io.github.gabrielvavelar.NewsLetter.prompt.SummaryPromptBuilder;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,22 @@ public class SummaryService {
     private final SummaryPromptBuilder promptBuilder;
 
     public String generateSummary(List<NewsArticle> articles) {
-        GenerateContentResponse response =
-                client.models.generateContent(
-                        properties.model(),
-                        promptBuilder.build(articles),
-                        null);
+        try{
+            GenerateContentResponse response =
+                    client.models.generateContent(
+                            properties.model(),
+                            promptBuilder.build(articles),
+                            null);
 
-        return response.text();
+            if(response == null || response.text() == null || response.text().isBlank()){
+               throw new SummaryGenerationException("Gemini returned an empty response");
+               }
+
+            return response.text();
+
+        }
+        catch (Exception e){
+            throw new SummaryGenerationException("Failed to generate Gemini summary");
+        }
     }
 }
