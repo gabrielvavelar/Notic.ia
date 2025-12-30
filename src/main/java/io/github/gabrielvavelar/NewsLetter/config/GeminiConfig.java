@@ -1,7 +1,6 @@
 package io.github.gabrielvavelar.NewsLetter.config;
 
 import com.google.genai.Client;
-import lombok.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

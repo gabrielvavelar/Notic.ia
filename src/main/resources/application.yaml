@@ -1,8 +1,8 @@
-spring:
-  application:
-    name: NewsLetter
+  spring:
+    application:
+      name: NewsLetter
 
-gemini:
-  api:
-    key: ${GEMINI_KEY}
-    model: ${GEMINI_MODEL}
+  gemini:
+    api:
+      api-key: ${GEMINI_KEY}
+      model: ${GEMINI_MODEL}
