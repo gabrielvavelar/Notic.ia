@@ -2,6 +2,15 @@
     application:
       name: NewsLetter
 
+    mail:
+      host: ${host}
+      port: 587
+      username: ${username}
+      password: ${password}
+      properties:
+        mail.smtp.auth: true
+        mail.smtp.starttls.enable: true
+
   gemini:
     api:
       api-key: ${GEMINI_KEY}
