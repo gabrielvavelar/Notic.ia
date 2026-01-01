@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/subscribers")
@@ -23,5 +20,11 @@ public class SubscriberController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(service.subscribe(requestDto));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<SubscriberResponseDto> unsubscribe(@RequestBody @Valid SubscriberRequestDto requestDto) {
+        service.unsubscribe(requestDto);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -3,6 +3,7 @@ package io.github.gabrielvavelar.NewsLetter.service.subscriber;
 import io.github.gabrielvavelar.NewsLetter.dto.SubscriberRequestDto;
 import io.github.gabrielvavelar.NewsLetter.dto.SubscriberResponseDto;
 import io.github.gabrielvavelar.NewsLetter.exception.EmailAlreadyExistsException;
+import io.github.gabrielvavelar.NewsLetter.exception.EmailDoesntExistsException;
 import io.github.gabrielvavelar.NewsLetter.mapper.SubscriberMapper;
 import io.github.gabrielvavelar.NewsLetter.model.Subscriber;
 import io.github.gabrielvavelar.NewsLetter.repository.SubscriberRepository;
@@ -27,6 +28,18 @@ public class SubscriberService {
         Subscriber saved = repository.save(subscriber);
 
         return mapper.toResponse(saved);
+    }
+
+    public void unsubscribe(SubscriberRequestDto requestDto) {
+        Subscriber subscriber = repository.findByEmail(requestDto.email())
+                .orElseThrow(() ->
+                        new EmailDoesntExistsException("Email doesn't exists")
+                );
+
+        if (subscriber.isActive()) {
+            subscriber.setActive(false);
+            repository.save(subscriber);
+        }
     }
 
     public List<String> getAllActiveEmails() {
