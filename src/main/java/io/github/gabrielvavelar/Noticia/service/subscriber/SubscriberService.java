@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +26,16 @@ public class SubscriberService {
         }
 
         Subscriber subscriber = mapper.toEntity(requestDto);
+
+        subscriber.setUnsubscribeToken(UUID.randomUUID());
+
         Subscriber saved = repository.save(subscriber);
 
         return mapper.toResponse(saved);
     }
 
-    public void unsubscribe(SubscriberRequestDto requestDto) {
-        Subscriber subscriber = repository.findByEmail(requestDto.email())
+    public void unsubscribe(UUID unsubscribeToken) {
+        Subscriber subscriber = repository.findByUnsubscribeToken(unsubscribeToken)
                 .orElseThrow(() ->
                         new EmailDoesntExistsException("Email doesn't exists")
                 );
@@ -42,10 +46,7 @@ public class SubscriberService {
         }
     }
 
-    public List<String> getAllActiveEmails() {
-        return repository.findAllByActiveTrue()
-                .stream()
-                .map(Subscriber::getEmail)
-                .toList();
+    public List<Subscriber> getAllSubscribers() {
+        return repository.findAllByActiveTrue();
     }
 }

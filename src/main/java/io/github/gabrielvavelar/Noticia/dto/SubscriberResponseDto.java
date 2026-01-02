@@ -5,5 +5,6 @@ import java.util.UUID;
 public record SubscriberResponseDto(
         UUID id,
         String email,
-        boolean active
+        boolean active,
+        UUID unsubscribeToken
 ) {}

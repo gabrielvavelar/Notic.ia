@@ -8,9 +8,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.UUID;
+
+@Controller
 @RequestMapping("/subscribers")
 @RequiredArgsConstructor
 @Tag(name = "Subscribers")
@@ -24,9 +27,9 @@ public class SubscriberController {
                 .body(service.subscribe(requestDto));
     }
 
-    @DeleteMapping
-    public ResponseEntity<SubscriberResponseDto> unsubscribe(@RequestBody @Valid SubscriberRequestDto requestDto) {
-        service.unsubscribe(requestDto);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/{unsubscribeToken}")
+    public String unsubscribe(@PathVariable UUID unsubscribeToken) {
+        service.unsubscribe(unsubscribeToken);
+        return "unsubscribe-success";
     }
 }
