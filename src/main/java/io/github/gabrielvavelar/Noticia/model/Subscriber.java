@@ -15,6 +15,5 @@ public class Subscriber {
     private UUID id;
     @Column(unique = true, nullable = false)
     private String email;
-    private boolean active = true;
     private UUID unsubscribeToken;
 }

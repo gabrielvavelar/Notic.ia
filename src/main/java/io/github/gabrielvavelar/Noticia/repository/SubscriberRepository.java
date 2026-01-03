@@ -11,6 +11,5 @@ import java.util.UUID;
 @Repository
 public interface SubscriberRepository extends JpaRepository<Subscriber, UUID> {
     boolean existsByEmail(String email);
-    List<Subscriber> findAllByActiveTrue();
     Optional<Subscriber> findByUnsubscribeToken(UUID unsubscribeToken);
 }

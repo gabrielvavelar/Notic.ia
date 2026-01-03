@@ -40,13 +40,10 @@ public class SubscriberService {
                         new InvalidUnsubscribeTokenException("Invalid unsubscribe token")
                 );
 
-        if (subscriber.isActive()) {
-            subscriber.setActive(false);
-            repository.save(subscriber);
-        }
+        repository.delete(subscriber);
     }
 
     public List<Subscriber> getAllSubscribers() {
-        return repository.findAllByActiveTrue();
+        return repository.findAll();
     }
 }
