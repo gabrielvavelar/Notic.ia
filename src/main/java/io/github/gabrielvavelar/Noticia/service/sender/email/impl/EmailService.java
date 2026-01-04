@@ -1,4 +1,4 @@
-package io.github.gabrielvavelar.Noticia.service.sender.impl;
+package io.github.gabrielvavelar.Noticia.service.sender.email.impl;
 
 import io.github.gabrielvavelar.Noticia.service.sender.MessageSender;
 import lombok.RequiredArgsConstructor;
