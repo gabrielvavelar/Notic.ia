@@ -5,7 +5,7 @@ import io.github.gabrielvavelar.Noticia.config.GeminiProperties;
 import io.github.gabrielvavelar.Noticia.exception.InvalidSummaryInputException;
 import io.github.gabrielvavelar.Noticia.exception.SummaryGenerationException;
 import io.github.gabrielvavelar.Noticia.model.NewsArticle;
-import io.github.gabrielvavelar.Noticia.prompt.SummaryPromptBuilder;
+import io.github.gabrielvavelar.Noticia.util.PromptUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.google.genai.types.GenerateContentResponse;
@@ -17,7 +17,6 @@ import java.util.List;
 public class SummaryService {
     private final Client client;
     private final GeminiProperties properties;
-    private final SummaryPromptBuilder promptBuilder;
 
     public String generateSummary(List<NewsArticle> articles) {
         if (articles == null || articles.isEmpty()) {
@@ -27,7 +26,7 @@ public class SummaryService {
             GenerateContentResponse response =
                     client.models.generateContent(
                             properties.model(),
-                            promptBuilder.build(articles),
+                            PromptUtil.buildPrompt(articles),
                             null);
 
             if(response == null || response.text() == null || response.text().isBlank()){

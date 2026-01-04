@@ -1,18 +1,18 @@
-package io.github.gabrielvavelar.Noticia.prompt;
+package io.github.gabrielvavelar.Noticia.util;
 
 import io.github.gabrielvavelar.Noticia.model.NewsArticle;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-public class SummaryPromptBuilder {
+public class PromptUtil {
 
-    public String build(List<NewsArticle> articles) {
+    private PromptUtil() {}
+
+    public static String buildPrompt(List<NewsArticle> articles) {
         return basePrompt().formatted(formatArticles(articles));
     }
 
-    public String basePrompt() {
+    public static String basePrompt() {
         return """
                 Você é um editor de newsletter experiente;
                 Abaixo estão os artigos coletados hoje:
@@ -23,7 +23,7 @@ public class SummaryPromptBuilder {
                 """;
     }
 
-    public String formatArticles(List<NewsArticle> articles) {
+    public static String formatArticles(List<NewsArticle> articles) {
         StringBuilder sb = new StringBuilder();
         for (NewsArticle article : articles) {
             sb.append(article.getTitle()).append("\n");
