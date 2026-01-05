@@ -1,11 +1,14 @@
 package io.github.gabrielvavelar.Noticia.service.sender.email.impl;
 
+import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import io.github.gabrielvavelar.Noticia.service.sender.MessageSender;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,15 +22,17 @@ public class EmailService implements MessageSender {
     private String sender;
 
     @Override
-    public void send(String content, String email) {
+    public void send(Subscriber subscriber, String content) {
         try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(sender);
-            message.setSubject("Resumo diário");
-            message.setText(content);
-            message.setTo(email);
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper mimeHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
-            mailSender.send(message);
+            mimeHelper.setFrom(sender);
+            mimeHelper.setTo(subscriber.getEmail());
+            mimeHelper.setSubject("Notic.ai");
+            mimeHelper.setText(content, true);
+
+            mailSender.send(mimeMessage);
         }
         catch (Exception e) {
             log.warn("Failed to send email", e);

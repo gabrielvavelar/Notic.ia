@@ -7,7 +7,8 @@ import io.github.gabrielvavelar.Noticia.exception.InvalidUnsubscribeTokenExcepti
 import io.github.gabrielvavelar.Noticia.mapper.SubscriberMapper;
 import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import io.github.gabrielvavelar.Noticia.repository.SubscriberRepository;
-import io.github.gabrielvavelar.Noticia.service.sender.email.WelcomeEmailService;
+import io.github.gabrielvavelar.Noticia.service.sender.MessageSender;
+import io.github.gabrielvavelar.Noticia.service.sender.email.EmailComposer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,8 @@ public class SubscriberService {
 
     private final SubscriberRepository repository;
     private final SubscriberMapper mapper;
-    private final WelcomeEmailService welcomeEmailService;
+    private final EmailComposer emailComposer;
+    private final MessageSender messageSender;
 
     public SubscriberResponseDto subscribe(SubscriberRequestDto requestDto) {
         if(repository.existsByEmail(requestDto.email())) {
@@ -33,7 +35,8 @@ public class SubscriberService {
 
         Subscriber saved = repository.save(subscriber);
 
-        welcomeEmailService.send(saved);
+        String content = emailComposer.composeWelcomeEmail(subscriber);
+        messageSender.send(subscriber, content);
 
         return mapper.toResponse(saved);
     }
