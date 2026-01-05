@@ -1,4 +1,4 @@
-package io.github.gabrielvavelar.Noticia.service.scheduler;
+package io.github.gabrielvavelar.Noticia.scheduler;
 
 import io.github.gabrielvavelar.Noticia.service.NewsService;
 import lombok.RequiredArgsConstructor;
