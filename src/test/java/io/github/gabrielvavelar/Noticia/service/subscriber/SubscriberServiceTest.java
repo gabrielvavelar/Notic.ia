@@ -1,4 +1,4 @@
-package io.github.gabrielvavelar.Noticia.service;
+package io.github.gabrielvavelar.Noticia.service.subscriber;
 
 import io.github.gabrielvavelar.Noticia.dto.MessageDto;
 import io.github.gabrielvavelar.Noticia.dto.SubscriberRequestDto;
@@ -10,7 +10,6 @@ import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import io.github.gabrielvavelar.Noticia.repository.SubscriberRepository;
 import io.github.gabrielvavelar.Noticia.service.sender.MessageSender;
 import io.github.gabrielvavelar.Noticia.service.sender.email.EmailComposer;
-import io.github.gabrielvavelar.Noticia.service.subscriber.SubscriberService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
