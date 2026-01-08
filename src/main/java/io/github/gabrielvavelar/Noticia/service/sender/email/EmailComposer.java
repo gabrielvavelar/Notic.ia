@@ -2,6 +2,7 @@ package io.github.gabrielvavelar.Noticia.service.sender.email;
 
 import io.github.gabrielvavelar.Noticia.dto.MessageDto;
 import io.github.gabrielvavelar.Noticia.model.Subscriber;
+import io.github.gabrielvavelar.Noticia.util.UnsubscribeLinkUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -11,11 +12,14 @@ import org.thymeleaf.context.Context;
 @RequiredArgsConstructor
 public class EmailComposer {
     private final TemplateEngine templateEngine;
+    private final UnsubscribeLinkUtil unsubscribeLinkUtil;
 
     public MessageDto composeWelcomeEmail(Subscriber subscriber) {
         Context context = new Context();
 
-        context.setVariable("unsubscribeToken", subscriber.getUnsubscribeToken());
+        context.setVariable(
+                "unsubscribeURL", unsubscribeLinkUtil.generateLink(subscriber.getUnsubscribeToken()
+                ));
 
         String body = templateEngine.process("welcome-email", context);
 
@@ -29,7 +33,10 @@ public class EmailComposer {
         Context context = new Context();
 
         context.setVariable("newsSummary", newsSummary);
-        context.setVariable("unsubscribeToken", subscriber.getUnsubscribeToken());
+
+        context.setVariable(
+                "unsubscribeURL", unsubscribeLinkUtil.generateLink(subscriber.getUnsubscribeToken()
+                ));
 
         String body = templateEngine.process("news-summary-email", context);
 

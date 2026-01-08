@@ -1,14 +1,20 @@
 package io.github.gabrielvavelar.Noticia.util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.UUID;
 
+@Component
 public class UnsubscribeLinkUtil {
 
-    private static final String BASE_URL = "http://localhost:8080/unsubscribe?token=";
+    private final String baseUrl;
 
-    private UnsubscribeLinkUtil() {}
+    public UnsubscribeLinkUtil(@Value("${url}") String url) {
+        this.baseUrl = url + "/unsubscribe.html?token=";
+    }
 
-    public static String generateLink(UUID token) {
-        return BASE_URL + token.toString();
+    public String generateLink(UUID token) {
+        return baseUrl + token;
     }
 }
