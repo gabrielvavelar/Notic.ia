@@ -16,6 +16,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Subscribers")
+@CrossOrigin(origins = "*")
 public class SubscriberController {
     private final SubscriberService service;
 

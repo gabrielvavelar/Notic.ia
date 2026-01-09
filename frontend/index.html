@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notic.ia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+<div id="app" class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div id="screen-form">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Notic.ia</h2>
+        <p class="text-gray-600 mb-6">Fique por dentro das últimas notícias.</p>
+
+        <form id="subscribeForm" class="space-y-4">
+            <input type="email" id="emailInput" placeholder="seu@email.com" required
+                   class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
+                Inscrever-se
+            </button>
+        </form>
+        <p id="inline-error" class="text-red-500 text-sm mt-2 hidden">E-mail inválido ou já cadastrado.</p>
+    </div>
+
+    <div id="screen-success" class="hidden text-center">
+        <div class="text-green-500 text-5xl mb-4">✓</div>
+        <h2 class="text-2xl font-bold mb-2 text-gray-800">Bem-vindo!</h2>
+        <p class="text-gray-600">Sua inscrição foi confirmada com sucesso.</p>
+        <button onclick="resetView()" class="mt-6 text-blue-600 hover:underline">Voltar</button>
+    </div>
+
+    <div id="screen-error" class="hidden text-center">
+        <div class="text-red-500 text-5xl mb-4">✕</div>
+        <h2 class="text-2xl font-bold mb-2 text-gray-800">Ops! Algo deu errado</h2>
+        <p id="error-message" class="text-gray-600 text-sm">Não foi possível processar sua solicitação no momento.</p>
+        <button onclick="resetView()" class="mt-6 bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Tentar novamente</button>
+    </div>
+</div>
+
+<script src="assets/js/subscribe.js"></script>
+</body>
+</html>
