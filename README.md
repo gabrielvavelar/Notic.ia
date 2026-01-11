@@ -19,9 +19,6 @@ O sistema opera em um fluxo totalmente automatizado:
 - **Web Scraping vs RSS:** Optei pelo web scraping em vez do feed RSS padrão para garantir a captura apenas das 
 notícias que o portal classifica como "Destaque Principal" na UI, oferecendo maior relevância ao usuário final.
 
-- **Arquitetura REST:** Embora o projeto use templates para e-mail, a estrutura é de uma API REST, permitindo que o 
-cadastro de assinantes seja consumida por qualquer front-end.
-
 ## 🛠️ Stack Tecnológica
 - Java 21
 - Spring Boot
