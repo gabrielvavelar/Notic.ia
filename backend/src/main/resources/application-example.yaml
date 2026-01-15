@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: NewsLetter
+
+  datasource:
+    url: ${DB_HOST}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    host: ${MAIL_HOST}
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+gemini:
+  api:
+    api-key: ${API_KEY}
+    model: ${API_MODEL}
+
+url: ${URL}
