@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://notic-ia-news.onrender.com';
 
 async function performUnsubscribe() {
     const urlParams = new URLSearchParams(window.location.search);

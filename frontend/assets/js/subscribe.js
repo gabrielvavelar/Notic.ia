@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://notic-ia-news.onrender.com';
 const form = document.getElementById('subscribeForm');
 
 form.addEventListener('submit', async (e) => {
